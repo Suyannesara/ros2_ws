@@ -1,0 +1,44 @@
+source /opt/ros/humble/setup.bash
+source ~/ros2_ws/install/setup.bash
+
+// rebuildar
+cd ~/ros2_ws
+rm -rf build/ install/ log/
+colcon build --symlink-install
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+
+// rodar nós
+ros2 launch landing_zone_system gazebo.launch.py
+# em outro terminal
+ros2 launch landing_zone_system landing_zone.launch.py
+
+
+cd ~/ros2_ws
+# limpa só a pasta de build/install/log do seu pacote
+rm -rf build/landing_zone_system install/landing_zone_system log/landing_zone_system
+
+# rebuild só landing_zone_system
+colcon build --packages-select landing_zone_system
+
+# fonte de novo
+source install/setup.bash
+
+// para ver se esta recebendo imagem
+ros2 run image_tools showimage --ros-args -r image:=/camera/image_raw
+
+ros2 run image_tools showimage --ros-args -r image:=/annotated_image
+
+
+ros2 run rqt_image_view rqt_image_view /camera/image_raw
+
+ros2 run landing_zone_system landing_zone_node \
+  --ros-args -p origem:=ros \
+             -p cameraTopic:=/annotated_image
+
+ros2 topic pub /find std_msgs/msg/Empty "{}"
+ros2 run image_tools showimage --ros-args --remap image:=/annotated_image
+
+drone escolhendo a zona de pouso
+desenho da zona de pouso
+rastreio dela

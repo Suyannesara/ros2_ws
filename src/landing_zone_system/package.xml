@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>landing_zone_system</name>
+  <version>0.1.0</version>
+  <description>
+    Pacote ROS 2 para detecção e rastreamento de zonas de pouso, compatível com vídeo, webcam e Gazebo.
+  </description>
+
+  <maintainer email="suyannesara17@gmail.com">Suyanne</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- Ferramenta de build -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Dependências de compilação -->
+  <build_depend>rclcpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+
+  <!-- Dependências de execução -->
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
