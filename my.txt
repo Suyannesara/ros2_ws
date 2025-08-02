@@ -39,6 +39,18 @@ ros2 run landing_zone_system landing_zone_node \
 ros2 topic pub /find std_msgs/msg/Empty "{}"
 ros2 run image_tools showimage --ros-args --remap image:=/annotated_image
 
+escolher a zona de pouso (ok)
 drone escolhendo a zona de pouso
 desenho da zona de pouso
 rastreio dela
+
+make px4_sitl gazebo-classic_iris_depth_camera
+ros2 run rqt_image_view rqt_image_view -> /camera/depth/image_raw
+ros2 launch landing_zone_system landing_zone.launch.py
+
+
+pkill -f gazebo
+kill -9 <PID>
+
+// matar completamente gazebo
+killall -9 gzserver gzclient

@@ -1,6 +1,5 @@
-<?xml version="1.0" ?>
-<sdf version="1.6">
-  <world name='baylands'>
+<sdf version='1.9'>
+  <world name='bayland'>
     <physics type="ode">
       <max_step_size>0.004</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -53,35 +52,5 @@
       <longitude_deg>-121.998878727967</longitude_deg>
       <elevation>38</elevation>
     </spherical_coordinates>
-
-
-    <model name="ros_camera">
-      <static>true</static>
-      <link name="link">
-        <!-- <pose> X Y Z  ROLL  PITCH  YAW </pose> -->
-        <pose>1 5 3  0 0.2 -1.5708</pose>
-
-        <sensor name="camera" type="camera">
-          <camera>
-            <horizontal_fov>1.047</horizontal_fov>
-            <image>
-              <width>640</width>
-              <height>480</height>
-              <format>R8G8B8</format>
-            </image>
-          </camera>
-          <plugin name="gazebo_ros_camera" filename="libgazebo_ros_camera.so">
-            <ros>
-              <!-- mantém no namespace raiz -->
-              <namespace>/</namespace>
-              <!-- remapeia os dois tópicos para /camera/... -->
-              <remapping>camera/image_raw:=/camera/image_raw</remapping>
-              <remapping>camera/camera_info:=/camera/camera_info</remapping>
-            </ros>
-            <update_rate>30.0</update_rate>
-          </plugin>
-        </sensor>
-      </link>
-    </model>
   </world>
 </sdf>
