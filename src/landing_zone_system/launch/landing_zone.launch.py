@@ -13,19 +13,7 @@ def generate_launch_description():
                 {'width': 1280},
                 {'height': 960},
                 {'gridRows': 6},
-                {'gridCols': 8},
+                {'gridCols': 8}
             ]
-            # parameters=[
-            #     {'origem': 'ros'},
-            #     {'cameraTopic': '/camera/image_raw'},
-            #     {'tempoBuscaSegundos': 10},
-            #     {'width': 640},
-            #     {'height': 480},
-            #     {'fps': 30.0},
-            #     {'gridRows': 6},
-            #     {'gridCols': 8},
-            #     {'salvarVideo': True},
-            #     {'saidaVideoPath': '/home/suyanne/ros2_ws/output.avi'},
-            # ]
         )
     ])

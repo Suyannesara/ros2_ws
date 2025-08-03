@@ -38,6 +38,7 @@ ament_target_dependencies(landing_zone_node
   image_transport
   gazebo_ros
   OpenCV
+  std_msgs
 )
 
 # install the executable

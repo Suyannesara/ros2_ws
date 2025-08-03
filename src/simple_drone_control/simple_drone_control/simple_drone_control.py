@@ -44,21 +44,21 @@ class SimpleDroneControl(Node):
         while True:
             cmd = input("> ").strip().lower()
             if cmd == "dir":
-                self.yaw -= 1.5708  # -90 graus em rad
+                self.yaw -= 0.785398  # -45 graus em rad
                 print(f"Virando para a direita. Yaw atual: {self.yaw:.2f} rad")
             elif cmd == "esq":
-                self.yaw += 1.5708  # +90 graus em rad
+                self.yaw += 0.785398  # +45 graus em rad
                 print(f"Virando para a esquerda. Yaw atual: {self.yaw:.2f} rad")
             elif cmd == "front":
                 # mover 1m para frente, na direção do yaw atual
-                dx = 1.0 * cos(self.yaw)
-                dy = 1.0 * sin(self.yaw)
+                dx = 5.0 * cos(self.yaw)
+                dy = 5.0 * sin(self.yaw)
                 self.position[0] += dx
                 self.position[1] += dy
                 print(f"Indo 1m para frente para {self.position[0]:.2f}, {self.position[1]:.2f}")
             elif cmd == "back":
-                dx = -1.0 * cos(self.yaw)
-                dy = -1.0 * sin(self.yaw)
+                dx = -5.0 * cos(self.yaw)
+                dy = -5.0 * sin(self.yaw)
                 self.position[0] += dx
                 self.position[1] += dy
                 print(f"Indo 1m para trás para {self.position[0]:.2f}, {self.position[1]:.2f}")

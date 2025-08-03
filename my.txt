@@ -40,9 +40,9 @@ ros2 topic pub /find std_msgs/msg/Empty "{}"
 ros2 run image_tools showimage --ros-args --remap image:=/annotated_image
 
 escolher a zona de pouso (ok)
-drone escolhendo a zona de pouso
+drone escolhendo a zona de pouso (ok)
 desenho da zona de pouso
-rastreio dela
+rastreio dela --
 
 make px4_sitl gazebo-classic_iris_depth_camera
 ros2 run rqt_image_view rqt_image_view -> /camera/depth/image_raw
@@ -70,3 +70,14 @@ ros2 topic pub /fmu/in/trajectory_setpoint px4_msgs/msg/TrajectorySetpoint --rat
   position: [20.0, 0.0, -4.0],
   yaw: -1.0
 }"
+
+# FIND
+ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'find'}"
+
+# TRACK
+ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'track'}"
+
+# sair
+ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'exit'}"
+
+MicroXRCEAgent udp4 -p 8888

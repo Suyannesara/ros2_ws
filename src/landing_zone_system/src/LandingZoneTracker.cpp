@@ -19,33 +19,6 @@ bool CSRTLandingZoneTracker::track(const cv::Mat& frame, LandingZoneCandidate& z
     return success;
 }
 
-// void TemplateMatchingLandingZoneTracker::initialize(const cv::Mat& frame, const LandingZoneCandidate& zone) {
-//     std::cout << "INICIEI O TRACKER" << std::endl;
-//     lastMatch = zone.zone;
-//     templateSize = zone.zone.size();
-//     templateImage = frame(zone.zone).clone();
-// }
-
-// bool TemplateMatchingLandingZoneTracker::track(const cv::Mat& frame, LandingZoneCandidate& zoneAtualizada) {
-//     if (frame.empty() || templateImage.empty()) return false;
-
-//     cv::Mat result;
-//     cv::matchTemplate(frame, templateImage, result, cv::TM_CCOEFF_NORMED);
-
-//     double maxVal;
-//     cv::Point maxLoc;
-//     cv::minMaxLoc(result, nullptr, &maxVal, nullptr, &maxLoc);
-
-//     lastMatch = cv::Rect2d(maxLoc.x, maxLoc.y, templateSize.width, templateSize.height);
-
-//     zoneAtualizada.zone = lastMatch;
-//     zoneAtualizada.certainty = maxVal;
-//     zoneAtualizada.intensityVar = 0.0; // Ou compute se quiser
-//     zoneAtualizada.frameIndex = -1; // Atualize conforme necessário
-
-//     return maxVal > 0.7; // Threshold que você escolher
-// }
-
 
 void TemplateMatchingLandingZoneTracker::initialize(const cv::Mat& frame, const LandingZoneCandidate& zone) {
     std::cout << "INICIEI O TRACKER" << std::endl;
