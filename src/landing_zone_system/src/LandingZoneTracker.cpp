@@ -97,3 +97,64 @@ bool TemplateMatchingLandingZoneTracker::track(const cv::Mat& frame, LandingZone
 }
 
 
+void LucasKanadeLandingZoneTracker::initialize(const cv::Mat& frame, const LandingZoneCandidate& zone) {
+    cv::Mat gray;
+    if (frame.channels() == 3)
+        cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
+    else
+        gray = frame.clone();
+
+    lastZone = zone.zone;
+    prevGray = gray.clone();
+
+    // Recorta a ROI da zona de pouso
+    cv::Mat roi = gray(zone.zone);
+
+    // Usa o seu detector ShiTomassi
+    auto [keypoints, score] = detector.run(roi);
+
+    prevPoints.clear();
+    for (const auto& kp : keypoints) {
+        // Converte de ROI para coordenadas da imagem
+        prevPoints.emplace_back(kp.pt.x + zone.zone.x, kp.pt.y + zone.zone.y);
+    }
+}
+
+bool LucasKanadeLandingZoneTracker::track(const cv::Mat& frame, LandingZoneCandidate& zoneAtualizada) {
+    if (prevPoints.empty() || prevGray.empty()) return false;
+
+    cv::Mat gray;
+    if (frame.channels() == 3)
+        cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
+    else
+        gray = frame.clone();
+
+    std::vector<cv::Point2f> nextPoints;
+    std::vector<uchar> status;
+    std::vector<float> err;
+
+    // Optical Flow
+    cv::calcOpticalFlowPyrLK(prevGray, gray, prevPoints, nextPoints, status, err);
+
+    std::vector<cv::Point2f> validPoints;
+    for (size_t i = 0; i < status.size(); i++) {
+        if (status[i])
+            validPoints.push_back(nextPoints[i]);
+    }
+
+    if (validPoints.empty()) return false;
+
+    cv::Rect2f newZone = cv::boundingRect(validPoints);
+
+    // Atualiza estados
+    prevPoints = validPoints;
+    prevGray = gray.clone();
+    lastZone = newZone;
+
+    zoneAtualizada.zone = newZone;
+    zoneAtualizada.certainty = 1.0;
+    zoneAtualizada.intensityVar = 0.0;
+    zoneAtualizada.frameIndex = -1;
+
+    return true;
+}

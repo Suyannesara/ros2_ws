@@ -35,7 +35,7 @@ void LandingZoneNode::declare_parameters_()
   declare_parameter("gridCols", 6);
 
   // opcional: permitir selecionar o tracker por parâmetro
-  declare_parameter("tracker_type", "template"); // "csrt" ou "template"
+  declare_parameter("tracker_type", "lk"); // "csrt" ou "template"
 }
 
 void LandingZoneNode::load_parameters_()
@@ -45,6 +45,7 @@ void LandingZoneNode::load_parameters_()
   get_parameter("height", height_);
   get_parameter("gridRows", grid_rows_);
   get_parameter("gridCols", grid_cols_);
+  get_parameter("tracker_type", tracker_type_);
 
   // reconfigura chooser com parâmetros reais
   chooser_ = LandingZoneChooser(grid_rows_, grid_cols_);
@@ -138,18 +139,20 @@ void LandingZoneNode::init_tracker_()
   std::string tracker_type = "csrt";
   (void)get_parameter("tracker_type", tracker_type);
 
-  if (tracker_type == "template")
-  {
+  if (tracker_type == "template") {
     tracker_ = std::make_unique<TemplateMatchingLandingZoneTracker>();
     RCLCPP_INFO(get_logger(), "Tracker selecionado: Template Matching");
-  }
-  else
-  {
+  } else if (tracker_type == "lk") {
+    tracker_ = std::make_unique<LucasKanadeLandingZoneTracker>();
+    RCLCPP_INFO(get_logger(), "Tracker selecionado: Lucas-Kanade");
+  } else {
     tracker_ = std::make_unique<CSRTLandingZoneTracker>();
     RCLCPP_INFO(get_logger(), "Tracker selecionado: CSRT");
   }
+
   tracker_initialized_ = false;
 }
+
 
 /** Loop de uma iteração respeitando o modo FIND/TRACK. */
 void LandingZoneNode::run_once()

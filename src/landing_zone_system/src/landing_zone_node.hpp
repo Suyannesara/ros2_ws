@@ -56,7 +56,7 @@ private:
     void publish_image_(cv::Mat &frame);
 
     // members
-    std::string camera_topic_;
+    std::string camera_topic_, tracker_type_;
     int width_, height_, grid_rows_, grid_cols_;
 
     // ROS publishers

@@ -13,7 +13,8 @@ def generate_launch_description():
                 {'width': 1280},
                 {'height': 960},
                 {'gridRows': 6},
-                {'gridCols': 8}
+                {'gridCols': 8},
+                {'tracker_type': 'template'}
             ]
         )
     ])

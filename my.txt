@@ -81,3 +81,5 @@ ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'track'}"
 ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'exit'}"
 
 MicroXRCEAgent udp4 -p 8888
+
+

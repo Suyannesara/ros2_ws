@@ -1,6 +1,7 @@
 #pragma once
 #include <opencv2/opencv.hpp>
 #include "LandingZoneChooser.hpp"
+#include "Detectors.hpp"
 #include <opencv2/tracking.hpp>
 #include <opencv2/core/ocl.hpp>
 
@@ -32,4 +33,17 @@ public:
     void initialize(const cv::Mat& frame, const LandingZoneCandidate& zone) override;
     bool track(const cv::Mat& frame, LandingZoneCandidate& zoneAtualizada) override;
 };
+
+class LucasKanadeLandingZoneTracker : public LandingZoneTracker {
+private:
+    std::vector<cv::Point2f> prevPoints;
+    cv::Rect2d lastZone;
+    cv::Mat prevGray;
+    ShiTomassi detector;
+
+public:
+    void initialize(const cv::Mat& frame, const LandingZoneCandidate& zone) override;
+    bool track(const cv::Mat& frame, LandingZoneCandidate& zoneAtualizada) override;
+};
+
 
