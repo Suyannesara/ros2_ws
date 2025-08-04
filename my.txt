@@ -83,3 +83,17 @@ ros2 topic pub -1 /landing_zone_cmd std_msgs/msg/String "{data: 'exit'}"
 MicroXRCEAgent udp4 -p 8888
 
 
+-137.89, -211.17
+-0.00, 15.00
+
+
+Aplicar Multi–scale / multi–rotation com matchTemplate pra ver se melhora
+Usar template matcher
+Melhorar parte gráfica e avisos [caixa com as coordenadas do ponto]
+Gravar o vídeo do simulador na trilha reencontrando o ponto
+Conectar código com o do Pedro e testar o controle de pouso com o tracking
+Escrever etapas do algoritmo - Nao necessariamente propor o algortimo, mas propor um código de como utilizar a abordagem descrita de deteccao e tracking
+Preparar lib e subir no repo
+Escrever outros itens no artigo (o q sao keypoints e etc)
+Quais resultados do algortimo eu posso por?
+

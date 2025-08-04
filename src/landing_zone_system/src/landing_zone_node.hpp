@@ -27,8 +27,8 @@ public:
     LandingZoneNode();
     void run_once(); // captura, processa e publica um frame
 
-    enum class RunMode{ FIND, TRACK };
-    RunMode mode_ = RunMode::FIND;
+    enum class RunMode{ IDLE, FIND, TRACK };
+    RunMode mode_ = RunMode::IDLE;
 
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr cmd_sub_;
 
@@ -45,6 +45,11 @@ private:
     void handle_cmd_(const std::string &cmd);
     void set_mode_(RunMode m);
     void init_video_source_();
+    void display_status_(cv::Mat& frame, const std::string& msg);
+
+    void process_idle_(cv::Mat &frame);
+    void process_track_(cv::Mat &frame);
+    void process_find_(cv::Mat &frame);
 
     
     // processing stages
